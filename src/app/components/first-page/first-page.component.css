@@ -1,0 +1,48 @@
+.zoom:hover {
+  transform: scale(1.3);
+}
+
+.mobileZoom:hover {
+  transform: scale(1.1);
+}
+
+.colorChange {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+}
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 105%;
+}
+
+.subHeadText {
+  font-weight: 600;
+  color: white;
+}
+
+.center-cropped {
+  object-fit: none; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+}
+
+a:link {
+  text-decoration: none !important;
+}
+a:active {
+  text-decoration: none !important;
+}
+a:hover {
+  text-decoration: none !important;
+}
+a:visited {
+  text-decoration: none !important;
+}

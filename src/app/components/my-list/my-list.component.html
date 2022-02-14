@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" 
+style="background-color: #040c21; padding-left:5vw; padding-right:5vw;">
+  <a class="navbar-brand" [routerLink]="['/']">USC Films</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-right">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']" >Home </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/mylist']" >My List</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" style="margin-right:0vw;">
+      <app-search-bar></app-search-bar>
+    </form>
+  </div>
+</nav>
+
+<div style="width:100%; background-color:#070d30;">
+
+    <div class="container colorWhite" style="padding-top:8vh">
+
+        <div class="row" *ngIf="myList.length==0">
+
+            <div class="col-12 text-center" style="min-height: 90vh;">
+                <h1 style="font-weight: 600; margin-top: 5rem;">No items found in Watchlist.</h1>
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="myList.length>0">
+
+            <div class="col-12">
+                <h1 style="font-weight: 600; margin-top: 1rem; margin-bottom: 50px; height:auto;">My Watchlist</h1>
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="myList.length>0" style="min-height:75vh;">
+
+            <div *ngFor="let item of myList">
+                
+                <a [routerLink]="item.title ? ['/watch/movie/',item.id] : ['/watch/tv/',item.id]">
+                  <div *ngIf="!mobile" style="height:300px;" class="col-2" style="margin-bottom: 30px;" >
+
+                    <div class="carousel-caption text-left" style="padding-bottom:0px; margin-left:6px;">
+                      <p *ngIf="item.id==showInd" class="colorChangeC" 
+                      style=" padding-left:10px; padding-right:10px; padding-bottom: 5px; padding-top:30px; 
+                      min-height:70px; height:auto; width:177px; margin-bottom: 0px;">{{item.title ? item.title:item.name}}</p>
+                    </div>
+                    
+                      <div class="picsum-img-wrapper">
+                        <img style=" width:160px; height:240px; margin-top: 30px; margin-bottom: 12px;" 
+                        class="img-responsive cardZoom" [src]="'https://image.tmdb.org/t/p/w500'+item.poster_path" 
+                        alt="No poster !!!" (mouseenter)="showInd = item.id" (mouseleave)=" showInd = '' ">
+                      </div>
+                    
+
+                  </div>
+                </a>
+
+                <div *ngIf="mobile" class="row col-12" style="margin-top:0px; padding:0px; margin-bottom:50px; margin-left:19vw;">
+
+                    <!--
+                    <div class="zoomMobile" style="height: 100%; width:100%; margin-bottom: 40px; padding:0px;">
+                      <div style="height:auto; width:auto; margin-bottom: 0px; margin-top:0px;">
+                        <p class="colorChangeC" style="position:relative; top:336px; padding-left:10px; padding-top:40px; padding-bottom: 5px; min-height:90px; height:auto; width:240px; ">{{item.title ? item.title:item.name}}</p>
+                      </div>
+                      <a [routerLink]="item.title ? ['/watch/movie/',item.id] : ['/watch/tv/',item.id]">
+                        <div class="picsum-img-wrapper">
+                          <img style=" height:320px; width:240px; margin:0px;" 
+                          class="img-responsive" [src]="'https://image.tmdb.org/t/p/w500'+item.poster_path" 
+                          alt="No poster !!!"
+                          (mouseenter)="showInd = item.id" (mouseleave)=" showInd = '' ">
+                        </div>
+                      </a>
+                    </div>
+                    -->
+
+                    <a [routerLink]="item.title ? ['/watch/movie/',item.id] : ['/watch/tv/',item.id]">
+                      <div class="col-12 zoomMobile">
+                        <div class="carousel-caption text-left" style="padding-bottom:0px; margin-left:14px;">
+                          <p class="colorChangeC" 
+                          style=" padding-left:15px; padding-right:15px; padding-bottom: 5px; padding-top:60px; 
+                          min-height:100px; height:auto; width:242px; margin-bottom: 0px;">{{item.title ? item.title:item.name}}</p>
+                        </div>
+                        
+                        <div class="picsum-img-wrapper">
+                          <img style=" width:240px; height:320px; margin-top: 30px; margin-bottom: 12px;" 
+                          class="img-responsive" [src]="'https://image.tmdb.org/t/p/w500'+item.poster_path" 
+                          alt="No poster !!!">
+                        </div>
+                        
+                      </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

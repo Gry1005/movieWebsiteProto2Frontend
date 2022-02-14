@@ -1,0 +1,16 @@
+<div style="color:white">
+    
+    <ng-template #rt let-r="result" let-t="term" style="border:solid 1px white;">
+        <a [routerLink]="r.title ? ['/watch/movie/',r.id] : ['/watch/tv/',r.id]" (click)="handleClick()">
+        <div style="color:white;">
+            <img [src]="'https://image.tmdb.org/t/p/w500' + r['backdrop_path']" class="mr-1" style="width: 100px;">
+            <ngb-highlight [result]="r.title ? '&nbsp;&nbsp;'+r.title : '&nbsp;&nbsp;'+r.name" [term]="t"></ngb-highlight>
+        </div>
+        </a>
+    </ng-template>
+    
+    <input id="typeahead-template" type="text" class="form-control" 
+    [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt"
+    [inputFormatter]="formatter" placeholder="Search"/>
+
+</div>

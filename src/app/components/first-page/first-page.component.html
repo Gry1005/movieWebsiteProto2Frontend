@@ -1,0 +1,189 @@
+<!--
+<nav *ngIf="!mobile" class="navbar navbar-expand-sm navbar-dark" style="background-color: #040c21;">
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active" style = "font-size: 120%;">
+      <a class="nav-link" [routerLink]="['/']" >USC Films</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" [routerLink]="['/']" >Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/mylist']">My List</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <app-search-bar></app-search-bar>
+    </li>
+  </ul>
+
+</nav>
+-->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" 
+style="background-color: #040c21; 
+padding-left:5vw; padding-right:5vw;">
+  <a class="navbar-brand" [routerLink]="['/']">USC Films</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-right">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/']" >Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/mylist']" >My List</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" style="margin-right:0vw;">
+      <app-search-bar></app-search-bar>
+    </form>
+  </div>
+</nav>
+
+<div style="width:100%; height:100%; background-color: #070d30;" >
+<div class="container">
+    <br/>
+
+    <div class="row"> 
+
+      <div class="col-12 inner">
+
+        <ngb-carousel *ngIf="!mobile" class="col-12" style="margin-top:10vh !important; outline:none !important;"
+        #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus" (slide)="onSlide($event)">
+          <ng-template ngbSlide *ngFor="let m of currentPlayingMovies; index as i">
+
+            <a [routerLink]="['/watch/movie/', m.id]" routerLinkActive="router-link-active" >
+              <div class="zoom" (mouseenter)="showHint = true" (mouseleave)=" showHint = false">
+                <div class="carousel-caption text-left colorChange" *ngIf="showHint">
+                  <p style="padding-left: 15%; padding-right:15%; padding-top:3vw; min-height:7vw; height:auto;">{{m.title}}</p>
+                </div>
+              
+                <div class="picsum-img-wrapper" style=" width: 80vw; height: 30vw;">
+                  
+                    <img class="center-cropped" [src]="'https://image.tmdb.org/t/p/w1280'+m.backdrop_path" 
+                    alt="My image {{i + 1}} description">
+                 
+                </div>
+              </div>
+            </a>
+            
+          </ng-template>
+        </ngb-carousel>
+
+        <ngb-carousel *ngIf="mobile" class="col-12" style="margin-top:0vw;padding-top:0vw; outline:none !important;"
+        #carousel [showNavigationIndicators]="false"
+        [interval]="5000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus" (slide)="onSlide($event)">
+          <ng-template ngbSlide style="margin-top:0vw;padding-top:0vw;"
+          *ngFor="let m of currentPlayingMovies; index as i">
+            
+            <a [routerLink]="['/watch/movie/', m.id]" routerLinkActive="router-link-active" >
+              <div class="mobileZoom" style="margin-top:0vw;padding-top:0vw;">
+                <div class="carousel-caption text-left colorChange" style="color:white; position:relative; top:50vw; min-height:15vw; height:auto;
+                padding-top:10vw; padding-bottom: 1vw; padding-left:10vw; padding-right:10vw;">
+                  <p>{{m.title}}</p>
+                </div>
+                
+                  <div class="picsum-img-wrapper">
+                    <img class="center-cropped" style=" width: 100vw; height: 50vw;" [src]="'https://image.tmdb.org/t/p/w500'+m.backdrop_path" alt="My image {{i + 1}} description" (mouseenter)="showHint = true" (mouseleave)=" showHint = false">
+                  </div>
+                
+              </div>
+            </a>
+
+          </ng-template>
+        </ngb-carousel>
+
+      </div>
+
+    </div>
+
+    
+</div>
+
+<div class="container-fluid">
+
+    <div *ngIf="continueList.length>0">
+      <div class="row col-12" style="margin-top: 30px; margin-bottom: 0px;">
+        <h1 style="margin-bottom: 0px;" class="offset-1 subHeadText">Continue Watching</h1>
+      </div>
+      <div class="row" style="margin-bottom: 0px; padding: 0px;">
+        <div style="margin-top: 0px;">
+          <app-card-carousel [value]="continueList"></app-card-carousel>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText">Popular Movies</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="popularMovies"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText" >Top Rated Movies</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="topMovies"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText" >Trending Movies</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="trendingMovies"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText" >Popular TV Shows</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="popularTVs"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText" >Top Rated TV Shows</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="topTVs"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row col-12" style="margin-top: 30px;">
+      <h1 class="offset-1 subHeadText" >Trending TV Shows</h1>
+    </div>
+    <div class="row">
+      <div style="margin-top: 0px;">
+        <app-card-carousel [value]="trendingTVs"></app-card-carousel>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-12" style="margin-top:50px;">
+
+      </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
