@@ -61,8 +61,8 @@ export class SearchBarComponent implements OnInit {
   getData(endPoint:any,term:any){
 
     //!!!!
-    let urlAdd = "https://winter-sequence-308604.wl.r.appspot.com/api";
-    //let urlAdd = "http://localhost:"+"8080"+"/api";
+    //let urlAdd = "https://winter-sequence-308604.wl.r.appspot.com/api";
+    let urlAdd = "http://localhost:"+"8080"+"/api";
 
     let url = urlAdd+"/posts"+"/"+endPoint+"?id="+term;
     return this.getXMLHttp(url);

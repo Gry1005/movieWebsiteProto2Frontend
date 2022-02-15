@@ -6,8 +6,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class PostsService {
 
-  urlAdd = "https://winter-sequence-308604.wl.r.appspot.com/api";
-  //urlAdd = "http://localhost:"+"8080"+"/api";
+  //urlAdd = "https://winter-sequence-308604.wl.r.appspot.com/api";
+  urlAdd = "http://localhost:"+"8080"+"/api";
 
   constructor(private httpClient:HttpClient) { }
 
